@@ -1,36 +1,25 @@
 import { useState } from "react";
 import * as Styles from "../styles/App.module.css";
-import pic1 from "/src/images/pic1.jpg";
-import pic2 from "/src/images/pic2.jpg";
-import purple from "/src/images/purple.jpg";
+import map from "../images/worldmap.jpg";
 import Header from "./Header";
 
 
 export default function App() {
-    const [photo, setPhoto] = useState<string>(pic1);
-
-    const switchPhoto = () => {
-        if (photo === pic1) {
-            setPhoto(pic2);
-        }
-        else if (photo === pic2) {
-            setPhoto(purple);
-        } else if (photo === purple) {
-            setPhoto(pic1);
-        } 
-    };
 
     return (
         <div className='center'>
             <Header />
             <div className="main-content">
-            <h1 className={Styles.cursive}>Photo Switcher</h1>
+            <h1 className={Styles.title}>Film Finder</h1>
             <div>
-                <img src={photo}/>
+                <img className={Styles.map} src={map}/>
             </div>
-            <button onClick={switchPhoto} id="button" className="button">
-                Switch
-            </button>
+            <h2 className={Styles.mainText}>Welcome to film finder, 
+                here you can search for any film to find locations it 
+                was filmed in, or seach for a location to find movies filmed nearby!</h2>
+            <h2 className={Styles.mainText}>Click the 'Movie' or 'Location' buttons to get started!</h2>
+            
+            
             </div>
         </div>
     );
