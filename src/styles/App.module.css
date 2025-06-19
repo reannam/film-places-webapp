@@ -25,3 +25,20 @@
     border: #333   5px solid;
     border-radius: 20px;
 }
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    height: 50px;
+    width: 200px;
+    font-size: xx-large;
+    margin: 20px;
+    background-color: #f8d1f8; 
+    border-color: #680068;
+    border-radius: 10px;
+    cursor: pointer;
+}

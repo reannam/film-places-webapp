@@ -18,8 +18,10 @@ export default function App() {
                 here you can search for any film to find locations it 
                 was filmed in, or seach for a location to find movies filmed nearby!</h2>
             <h2 className={Styles.mainText}>Click the 'Movie' or 'Location' buttons to get started!</h2>
-            
-            
+            <div className="buttonContainer">
+            <button className={Styles.button} onClick={() => window.location.href = '/movie'}>Movie</button>
+            <button className={Styles.button} onClick={() => window.location.href = '/location'}>Location</button>
+            </div>  
             </div>
         </div>
     );
