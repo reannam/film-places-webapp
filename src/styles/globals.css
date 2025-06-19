@@ -1,0 +1,26 @@
+.center {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    height: 50px;
+    width: 200px;
+    font-size: xx-large;
+    margin: 20px;
+    background-color: #d1ff75; /* Green */
+    border-color: #496b03;
+    border-radius: 10px;
+}
+
+img {
+    height: 500px;
+    width: 500px;
+}
+
+h1 {
+    color: red;
+}
