@@ -23,6 +23,7 @@ export default function App() {
     return (
         <div className='center'>
             <Header />
+            <div className="main-content">
             <h1 className={Styles.cursive}>Photo Switcher</h1>
             <div>
                 <img src={photo}/>
@@ -30,6 +31,7 @@ export default function App() {
             <button onClick={switchPhoto} id="button" className="button">
                 Switch
             </button>
+            </div>
         </div>
     );
 }
