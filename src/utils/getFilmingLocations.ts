@@ -1,7 +1,16 @@
-// src/utils/getFilmingLocations.ts
+/**
+ * Fetches filming locations for a given movie title from Wikipedia, using the Wikipedia api.
+ * @param {string} movieTitle - The title of the movie the user has searched for.
+ * @returns {Promise<string[]>} - A promise that resolves to an array of filming locations.
+ */
 export async function getFilmingLocations(movieTitle: string): Promise<string[]> {
   try {
-    // Step 1: Get section list to find "Filming" index
+    // GET section list to find "Filming" index
+
+    movieTitle = movieTitle.toLowerCase().split(' ').map((word: any) => {
+          return (word.charAt(0).toUpperCase() + word.slice(1));
+        }).join(' ');
+
     const sectionsRes = await fetch(
       `https://en.wikipedia.org/w/api.php?action=parse&prop=sections&page=${encodeURIComponent(
         movieTitle
@@ -19,7 +28,7 @@ export async function getFilmingLocations(movieTitle: string): Promise<string[]>
 
     const sectionIndex = filmingSection.index;
 
-    // Step 2: Fetch "Filming" section text
+    // Fetch "Filming" section text
     const textRes = await fetch(
       `https://en.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(
         movieTitle
@@ -30,21 +39,81 @@ export async function getFilmingLocations(movieTitle: string): Promise<string[]>
 
     if (!html) throw new Error("No HTML returned.");
 
-    // Step 3: Extract filming locations from HTML
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = html;
-    const paragraphs = Array.from(tempDiv.querySelectorAll("p")).map(p => p.textContent?.trim() ?? "");
+    // Extract links from HTML
+const tempDiv = document.createElement("div");
+tempDiv.innerHTML = html;
 
-    // Optional: extract only lines mentioning places
-    const locations = paragraphs
-      .join(" ")
-      .split(/[.?!]/) // split by sentence
-      .filter(sentence =>
-        /(filmed in|filming took place|shot in|locations included|scenes were filmed)/i.test(sentence)
-      )
-      .map(sentence => sentence.trim());
+// Get all <a> tags with title attributes from the json response
+const allLinks = Array.from(tempDiv.querySelectorAll("a[title]"));
 
-    return locations.length ? locations : ["No specific filming locations found."];
+// Filter out links that are not likely to be locations
+const excludeTerms = [
+  "Pictures",
+  "Studios",
+  "Films",
+  "Director",
+  "Producer",
+  "Actor",
+  "Screenplay",
+  "Award",
+  "Production",
+  "Film",
+];
+
+const possibleLocations = allLinks
+  .map(a => a.getAttribute("title"))
+  .filter((title): title is string => !!title)
+  .filter(title =>
+    title.length > 2 && // Filter out very short titles
+    !excludeTerms.some(term => title.includes(term))
+  )
+  .filter(title => // check for common location patterns
+    /^[A-Z][a-z]+(, [A-Z][a-z]+)?$/.test(title) || // e.g. "Belfast, Northern Ireland"
+    title.includes("Mountain") ||
+    title.includes("Park") ||
+    title.includes("Beach") ||
+    title.includes("City") ||
+    title.includes("Island") ||
+    title.includes("County") ||
+    title.includes("Province") ||
+    title.includes("State") ||
+    title.includes("Village") ||
+    title.includes("Town") ||
+    title.includes("District") ||
+    title.includes("Square") ||
+    title.includes("Street") ||
+    title.includes("Road") ||
+    title.includes("Avenue") ||
+    title.includes("Boulevard") ||
+    title.includes("Plaza") ||
+    title.includes("Harbor") ||
+    title.includes("Port") ||
+    title.includes("Bay") ||
+    title.includes("River") ||
+    title.includes("Lake") ||
+    title.includes("Waterfall") ||
+    title.includes("Canyon") ||
+    title.includes("Forest") ||
+    title.includes("Woods") ||
+    title.includes("Jungle") ||
+    title.includes("Desert") ||
+    title.includes("Valley") ||
+    title.includes("Hill") ||
+    title.includes("Cave") ||
+    title.includes("Ruins") ||
+    title.includes("Castle") ||
+    title.includes("Palace") ||
+    title.includes("Fort") ||
+    title.includes("Monument") ||
+    title.includes("Memorial")
+  );
+
+// Remove duplicates
+const uniqueLocations = Array.from(new Set(possibleLocations));
+
+return uniqueLocations.length ? uniqueLocations : ["No clear locations found."];
+
+    
   } catch (error) {
     console.error("Error fetching filming locations:", error);
     return ["Could not retrieve filming location."];
