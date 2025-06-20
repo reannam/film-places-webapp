@@ -9,7 +9,7 @@ export async function getFilmingLocations(movieTitle: string): Promise<string[]>
 
     movieTitle = movieTitle.toLowerCase().split(' ').map((word: any) => {
           return (word.charAt(0).toUpperCase() + word.slice(1));
-        }).join(' ');
+        }).join(' '); // this changes the movie title to be in the correct format for the wikipedia api
 
     const sectionsRes = await fetch(
       `https://en.wikipedia.org/w/api.php?action=parse&prop=sections&page=${encodeURIComponent(
