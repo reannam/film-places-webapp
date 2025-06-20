@@ -17,10 +17,10 @@ export default function App() {
             <h2 className={Styles.mainText}>Welcome to film finder, 
                 here you can search for any film to find locations it 
                 was filmed in, or seach for a location to find movies filmed nearby!</h2>
-            <h2 className={Styles.mainText}>Click the 'Movie' or 'Location' buttons to get started!</h2>
+            <h2 className={Styles.mainText}>Click the 'Movies' or 'Locations' buttons to get started!</h2>
             <div className="buttonContainer">
-            <button className={Styles.button} onClick={() => window.location.href = '/movie'}>Movie</button>
-            <button className={Styles.button} onClick={() => window.location.href = '/location'}>Location</button>
+            <button className={Styles.button} onClick={() => window.location.href = '/movies'}>Movies</button>
+            <button className={Styles.button} onClick={() => window.location.href = '/location'}>Locations</button>
             </div>  
             </div>
         </div>

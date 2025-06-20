@@ -9,7 +9,7 @@ export default function Header() {
                 <div className={styles.headerRight}>
                     <a href="/">Home</a>
                     <text className={styles.break}>|</text>
-                    <a href="/about">About</a>
+                    <a href="/movies">Movies</a>
                     <text className={styles.break}>|</text>
                     <a href="/contact">Contact</a>
                 </div>

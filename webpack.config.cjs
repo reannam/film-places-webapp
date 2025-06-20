@@ -12,6 +12,7 @@ module.exports = {
   },
   devServer: {
     static: path.resolve(__dirname, 'dist'),
+    historyApiFallback: true,
     port: 3000
   },
   plugins: [
