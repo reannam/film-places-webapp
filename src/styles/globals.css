@@ -33,3 +33,7 @@ img {
 h1 {
     color: red;
 }
+
+body {
+    padding-top: 140px; /* Adjust for fixed header */
+}
