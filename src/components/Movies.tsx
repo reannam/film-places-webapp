@@ -2,18 +2,19 @@ import { useState } from "react";
 import * as Styles from "../styles/Movies.module.css";
 import Header from "./Header";
 import { getFilmingLocations } from "../utils/getFilmingLocations";
+import { getMovies } from "../utils/getMovies";
 
 export default function Movies() {
     const [movieName, setMovieName] = useState("");
-    const [filmingInfo, setFilmingInfo] = useState<string[] | null>(null);
+    const [movieInfo, setMovieInfo] = useState<string[] | null>(null);
     const [loading, setLoading] = useState(false);
 
     const handleSearch = async () => {
         if (!movieName.trim()) return;
-
         setLoading(true);
-        const info = await getFilmingLocations(movieName);
-        setFilmingInfo(info);
+        const info = await getMovies(movieName);
+
+        setMovieInfo(info);
         setLoading(false);
     };
 
@@ -39,19 +40,19 @@ export default function Movies() {
                     </button>
                 </div>
 
-                {loading && <p>Loading filming locations...</p>}
-                {filmingInfo && (
+                {loading && <p>Loading movies...</p>}
+                {movieInfo && (
                     <div className={Styles.resultBox}>
-                        <h2>Filming Locations:</h2>
+                        <h2>Movies:</h2>
                         <ul>
-                            {filmingInfo.map((loc, idx) => (
+                            {movieInfo.map((loc, idx) => (
                                 <li key={idx}>{loc}</li>
                             ))}
                         </ul>
                     </div>
                 )}
-                {filmingInfo && filmingInfo.length === 0 && !loading && movieName && (
-                    <p>No filming location info found.</p>
+                {movieInfo && movieInfo.length === 0 && !loading && movieName && (
+                    <p>No movie info found.</p>
                 )}
             </div>
         </div>
