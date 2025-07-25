@@ -1,10 +1,9 @@
 /**
  * Fetches movie-specific Wikipedia pages for a search term, filtering out people/crew.
- * Paginates the results, returning 5 movies per page by default.
  * @param {string} movieTitle - The title of the movie or series.
  * @returns {Promise<string[]>} - Titles of matching movies/films only for that page.
  */
-export async function getMovies(movieTitle: string, page: number = 1, pageSize: number = 5): Promise<string[]> {
+export async function getMovies(movieTitle: string): Promise<string[]> {
   try {
 
     movieTitle = movieTitle.toLowerCase().split(' ').map((word: any) => {
@@ -22,7 +21,7 @@ export async function getMovies(movieTitle: string, page: number = 1, pageSize: 
     const pages = data.pages;
 
     // potential words to exclude from titles
-    const excludeWords = ["series", "tv", "show", "television", "episode", "fandom", "soundtrack", "character"];
+    const excludeWords = ["series", "tv", "show", "television", "episode", "fandom", "soundtrack", "character", "score"];
 
     // Filter for pages whose description contains 'film' or 'movie'
     const filteredMovies = pages.filter((page: any) => {

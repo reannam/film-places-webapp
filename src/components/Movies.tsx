@@ -3,7 +3,7 @@ import * as Styles from "../styles/Movies.module.css";
 import Header from "./Header";
 import { getMovies } from "../utils/getMovies";
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 8;
 
 export default function Movies() {
     const [movieName, setMovieName] = useState("");
